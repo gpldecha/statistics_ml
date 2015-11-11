@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+
+
+<!---->
+
+  <node name="test_statistics_ml" pkg="statistics_ml" type="gmm_test" required="true"  launch-prefix="xterm -e gdb --args" output="screen"/>
+
+
+</launch>
