@@ -13,9 +13,9 @@ int main(int argc,char** argv){
     std::string path_parameters = "/home/guillaume/MatlabWorkSpace/peg_in_hole_RL/PolicyModelSaved/PolicyModel_txt/gmm_xhu";
 
 
-    GMM gmm(path_parameters);
-
-    GMM gmm_c;
+    stats::GMM gmm(path_parameters);
+/*
+    stats::GMM gmm_c;
     std::vector<std::size_t> in = {{0,1,2,3}};
     std::vector<std::size_t> out = {{4,5,6}};
     arma::vec x(4);
@@ -39,15 +39,15 @@ int main(int argc,char** argv){
     std::cout<< "in : " << in.size() << std::endl;
     std::cout<< "out: " << out.size() << std::endl;
 
-    gmm.condition(gmm_c,x,in,out);
+    gmm.condition(gmm_c,x,in,out);*/
 
-    std::cout<< "w(0): " << (gmm_c.gmm.Weights())[114] << std::endl;
+    /*std::cout<< "w(0): " << (gmm_c.gmm.Weights())[114] << std::endl;
     gmm_c.gmm.Means()[114].print("Mu(0)");
     gmm_c.gmm.Covariances()[114].print("Covariance[0]");
 
 
     arma::vec e; e.resize(3);
-
+*/
    // gmm_c.print();
 
    // gmm_c.expection(e);

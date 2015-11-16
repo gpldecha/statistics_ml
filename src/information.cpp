@@ -1,6 +1,8 @@
 #include <statistics/information.h>
 #include <math.h>
 
+using namespace stats;
+
 Smooth::Smooth(){
     bFirstExp=true;
     s=0;
@@ -21,7 +23,7 @@ double Information::monte_carlo_entropy(const GMM& gmm) {
 double Information::upper_bound_entropy(GMM &gmm)   {
     double HU = 0;
     for(unsigned int i = 0; i < gmm.K; i++){
-        HU = HU  - gmm.getPriors(i)*log(gmm.getPriors(i)) + 0.5*gmm.getPriors(i) *log(std::pow(2*M_PI*exp(1),(double)gmm.D) * arma::det(gmm.getSigma(i)))  ;
+        HU = HU  - gmm.pi(i)*log(gmm.pi(i)) + 0.5*gmm.pi(i) *log(std::pow(2*M_PI*exp(1),(double)gmm.D) * arma::det(gmm.Covariances[i]))  ;
         //log(std::pow(2*M_PI*exp(1),(double)gmm.D) * arma::det(gmm.getSigma(i)))
 
     }
@@ -35,10 +37,10 @@ double Information::lower_bound_entropy(GMM& gmm) {
     for(unsigned int i = 0; i < gmm.K;i++){
         tmp = 0;
         for(unsigned int j = 0; j < gmm.K;j++){
-            tmp = tmp + gmm.getPriors(j) *  mvnpdf(gmm.getMu(i),gmm.getMu(j),gmm.getSigma(i) + gmm.getSigma(j));
+            tmp = tmp + gmm.pi(j) *  mvnpdf(gmm.Means[i],gmm.Means[j],gmm.Covariances[i] + gmm.Covariances[j]);
         }
         tmp = log(tmp);
-        HL = HL + gmm.getPriors(i) * tmp;
+        HL = HL + gmm.pi(i) * tmp;
     }
     HL = -1*HL;
     HL = checkForNan(HL,qHl);

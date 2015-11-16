@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <limits>
 
+using namespace stats;
 
 Clustering::Clustering(){
 
@@ -138,7 +139,7 @@ void Clustering::one_mixture_component(GMM& gmm,const arma::mat &data){
 
     //covariances[0].print("covariances[0]");
 
-    gmm.setParam(pi,means,covariances);
+ //   gmm.setParam(pi,means,covariances);
 
    // gmm.print();
 }
@@ -186,7 +187,7 @@ void Clustering::multiple_components(GMM& gmm, const arma::mat& data){
     }
 */
 
-    gmm.setParam(pi,means,covariances);
+    //gmm.setParam(pi,means,covariances);
 
 
 }

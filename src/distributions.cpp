@@ -8,6 +8,7 @@
 #include <statistics/distributions/distributions.h>
 #include <boost/lexical_cast.hpp>
 
+using namespace stats;
 
 
 

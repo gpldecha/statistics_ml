@@ -21,6 +21,8 @@
 
 using namespace std;
 
+namespace stats{
+
 class EM{
 
 public:
@@ -119,8 +121,8 @@ public:
 
     arma::Col<size_t>             assignments;
     std::vector<arma::mat >       covariances;
-    std::vector<arma::vec>        means;
-    arma::vec                     pi;
+    std::vector<arma::colvec>     means;
+    arma::colvec                  pi;
     arma::mat                     I;
     arma::mat                     centroids;
     mlpack::kmeans::KMeans<>      cluster_kmeans;
@@ -134,7 +136,7 @@ private:
     arma::vec                     N;
 };
 
-
+}
 
 
 

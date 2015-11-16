@@ -6,6 +6,8 @@
 #include <statistics/distributions/gmm.h>
 #include <queue>
 
+namespace stats{
+
 class Smooth{
 
 public:
@@ -67,5 +69,6 @@ private:
 
     std::deque<double> qHl,qHu,qHo;
 };
+}
 
 #endif
