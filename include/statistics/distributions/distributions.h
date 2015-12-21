@@ -52,7 +52,7 @@ inline std::size_t random_i(std::size_t a, std::size_t b){
     return (b - a +1)*((double)rand()/(double)RAND_MAX) + a;
 }
 
-static int sample_discrete(const std::vector<double> &p,double max){
+inline int sample_discrete(const std::vector<double> &p,double max){
     unsigned int size = p.size();
     unsigned int index = random_i(0,size);
     double beta = 0;

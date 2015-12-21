@@ -23,7 +23,7 @@ double Information::monte_carlo_entropy(const GMM& gmm) {
 double Information::upper_bound_entropy(GMM &gmm)   {
     double HU = 0;
     for(unsigned int i = 0; i < gmm.K; i++){
-        HU = HU  - gmm.pi(i)*log(gmm.pi(i)) + 0.5*gmm.pi(i) *log(std::pow(2*M_PI*exp(1),(double)gmm.D) * arma::det(gmm.Covariances[i]))  ;
+        HU = HU  - gmm.get_weigts()[i]*log(gmm.get_weigts()[i]) + 0.5*gmm.get_weigts()[i] *log(std::pow(2*M_PI*exp(1),(double)gmm.D) * arma::det(gmm.get_covariances()[i]))  ;
         //log(std::pow(2*M_PI*exp(1),(double)gmm.D) * arma::det(gmm.getSigma(i)))
 
     }
@@ -37,10 +37,10 @@ double Information::lower_bound_entropy(GMM& gmm) {
     for(unsigned int i = 0; i < gmm.K;i++){
         tmp = 0;
         for(unsigned int j = 0; j < gmm.K;j++){
-            tmp = tmp + gmm.pi(j) *  mvnpdf(gmm.Means[i],gmm.Means[j],gmm.Covariances[i] + gmm.Covariances[j]);
+            tmp = tmp + gmm.get_weigts()[i] *  mvnpdf(gmm.get_means()[i],gmm.get_means()[j],gmm.get_covariances()[i] + gmm.get_covariances()[j]);
         }
         tmp = log(tmp);
-        HL = HL + gmm.pi(i) * tmp;
+        HL = HL + gmm.get_weigts()[i] * tmp;
     }
     HL = -1*HL;
     HL = checkForNan(HL,qHl);

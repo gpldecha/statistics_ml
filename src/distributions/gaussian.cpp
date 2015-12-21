@@ -94,7 +94,7 @@ void Gaussian_c::condition(const arma::colvec& Mean, const arma::mat& Covariance
     getBlock(Mu_2,Mean,in);
 
     invSigma22 = arma::inv(Sig_22);
-    det_22     = arma::det(invSigma22);
+    det_22     = arma::det(Sig_22);
     Sigma_1c2  = Sig_11 - Sig_12 * invSigma22 * Sig_21;
 }
 

@@ -36,6 +36,20 @@ public :
 
     GMM(const arma::colvec &weights,const std::vector<arma::vec>& Mu,const std::vector<arma::mat>& Sigma);
 
+    const arma::colvec& get_weigts() const;
+
+    const std::vector<arma::colvec>& get_means() const;
+
+    const std::vector<arma::mat>& get_covariances() const;
+
+    void set_prior(const arma::colvec &weights);
+
+    void set_prior(const std::size_t i,const double value);
+
+    void set_mu(const std::size_t i,const arma::vec& mu);
+
+    void set_covariance(const std::size_t i,const arma::mat& covariance);
+
     void likelihood(const arma::mat& X,arma::vec& y);
 
     void expection(arma::colvec& x) const;
@@ -46,7 +60,7 @@ public :
 
     void clear();
 
-    void print();
+    void print() const;
 
     std::size_t K;
     std::size_t D;
@@ -55,7 +69,8 @@ public :
     boost::mt19937 generator;
     boost::random::discrete_distribution<> dist;
 
-public:
+
+protected:
 
     arma::colvec              pi;
     std::vector<arma::colvec> Means;
@@ -100,6 +115,7 @@ public:
      */
     void condition(const arma::colvec& x_in,const GMM& gmm_in);
 
+    void print() const;
 
 private:
 
@@ -148,7 +164,6 @@ public:
 
         for(std::size_t i = 0; i < paths_to_gmms.size();i++){
             gmms[i].load(paths_to_gmms[i].string() + "/");
-            //   gmms[i].set_name(paths_to_gmms[i].filename().string());
         }
 
         return true;
