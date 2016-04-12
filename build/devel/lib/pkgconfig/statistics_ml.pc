@@ -1,0 +1,8 @@
+prefix=/home/guillaume/roscode/catkin_ws/src/statistics_ml/build/devel
+
+Name: statistics_ml
+Description: Description of statistics_ml
+Version: 0.0.0
+Cflags: -I/home/guillaume/roscode/catkin_ws/src/statistics_ml/include
+Libs: -L/home/guillaume/roscode/catkin_ws/src/statistics_ml/build/devel/lib -lstatistics_ml -lmlpack
+Requires: roscpp

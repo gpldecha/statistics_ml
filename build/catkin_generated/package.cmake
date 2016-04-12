@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "statistics_ml")
+set(statistics_ml_MAINTAINER "guillaume <guillaume@todo.todo>")
+set(statistics_ml_DEPRECATED "")
+set(statistics_ml_VERSION "0.0.0")
+set(statistics_ml_BUILD_DEPENDS "roscpp")
+set(statistics_ml_RUN_DEPENDS "roscpp")
+set(statistics_ml_BUILDTOOL_DEPENDS "catkin")

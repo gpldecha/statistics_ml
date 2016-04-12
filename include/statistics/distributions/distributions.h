@@ -170,6 +170,10 @@ class Distance{
 
 public:
 
+    static inline double Hellinger(const arma::colvec& P, const arma::colvec& Q){
+        return (1.0/sqrt(2.0)) * sqrt(arma::sum(arma::square(arma::sqrt(P) - arma::sqrt(Q))));
+    }
+
 
     static inline double KL(const std::vector<double>& P, const std::vector<double>& Q){
         double kl = 0;

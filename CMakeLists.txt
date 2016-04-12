@@ -45,6 +45,8 @@ set(INC  ${INCLUDE_DIR}/statistics/distributions/distributions.h
          ${INCLUDE_DIR}/statistics/initialise.h
          ${INCLUDE_DIR}/statistics/decision_functions.h
          ${INCLUDE_DIR}/algorithms/find_closest_points.h
+         ${INCLUDE_DIR}/algorithms/convolution.h
+
 
 )
 

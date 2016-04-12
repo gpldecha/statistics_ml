@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: statistics_ml
+Description: Description of statistics_ml
+Version: 0.0.0
+Cflags: -I/usr/local/include
+Libs: -L/usr/local/lib -lstatistics_ml -lmlpack
+Requires: roscpp

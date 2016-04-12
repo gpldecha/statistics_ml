@@ -26,6 +26,52 @@
 
 namespace stats{
 
+
+class Load_param{
+
+public:
+
+    class scale{
+    public:
+
+        scale(){
+            dim = 0;
+            min_d = 0;
+            max_d = 1;
+            target_min = 0;
+            target_max = 1;
+            bscale = false;
+        }
+
+        void print() const{
+            std::cout<< "== scale == " << std::endl;
+            std::cout<< "bscale: " << bscale << std::endl;
+            std::cout<< "dim:   " << dim << std::endl;
+            std::cout<< "min_d: " << min_d << std::endl;
+            std::cout<< "max_d: " << max_d << std::endl;
+            std::cout<< "t_min: " << target_min << std::endl;
+            std::cout<< "t_max: " << target_max << std::endl;
+        }
+
+        std::size_t dim;
+        double min_d,max_d;
+        double target_min,target_max;
+        bool bscale;
+
+    };
+
+public:
+
+    void load_scale(const std::string path_param);
+
+public:
+
+    scale scale_;
+    arma::mat tmp;
+
+};
+
+
 class GMM {
 
 public :
@@ -65,16 +111,18 @@ public :
     std::size_t K;
     std::size_t D;
     std::string name;
+    std::vector<std::size_t>  in, out;
 
     boost::mt19937 generator;
     boost::random::discrete_distribution<> dist;
-
 
 protected:
 
     arma::colvec              pi;
     std::vector<arma::colvec> Means;
     std::vector<arma::mat>    Covariances;
+
+
 
 
 private:
@@ -115,7 +163,7 @@ public:
      */
     void condition(const arma::colvec& x_in,const GMM& gmm_in);
 
-    void print() const;
+    void print(const std::string& p="") const;
 
 private:
 
