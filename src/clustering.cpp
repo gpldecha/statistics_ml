@@ -40,7 +40,7 @@ void Clustering::kmeans(const arma::mat &data, const arma::vec& w){
    // std::cout<< "data:      (" << data.n_rows << " x " << data.n_cols << ") " << std::endl;
    // std::cout<< "centroids: (" << centroids.n_rows << " x " << centroids.n_cols << ") " << std::endl;
    // std::cout<< "assignmen: (" << assignments.n_elem << ") " << std::endl;
-    cluster_kmeans.Cluster(data,K,assignments,centroids,false,true);
+  //  cluster_kmeans.Cluster(data,K,assignments,centroids,false,true);
   //  std::cout<< "cluster finish" << std::endl;
 }
 
@@ -252,10 +252,10 @@ void Clustering::LogLikelihood(const arma::mat& data, const arma::vec& w)
   double sum = 0;
   for (size_t i = 0; i < gaussians; i++)
   {
-    mlpack::gmm::phi(data, means[i], covariances[i], phis);
-    likelihoods.row(i) = w(i) * trans(phis);
-    pi[i] = arma::sum(likelihoods.row(i));
-    sum = sum + pi[i];
+    //mlpack::gmm::phi(data, means[i], covariances[i], phis);
+    //likelihoods.row(i) = w(i) * trans(phis);
+    //pi[i] = arma::sum(likelihoods.row(i));
+   // sum = sum + pi[i];
   }
 
   for (size_t i = 0; i < gaussians; i++)

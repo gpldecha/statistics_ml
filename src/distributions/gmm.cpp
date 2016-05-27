@@ -13,7 +13,7 @@ void Load_param::load_scale(const std::string path_param){
         scale_.bscale = false;
     }else{
         std::cout<< "   loaded: " << path_param + "/" +  "scale.txt" << std::endl;
-       // gmm.scale.h(1),gmm.scale.h(2),gmm.scale.h_min,gmm.scale.h_max
+        // gmm.scale.h(1),gmm.scale.h(2),gmm.scale.h_min,gmm.scale.h_max
         scale_.bscale      = true;
         scale_.dim         = tmp(0);
         scale_.target_min  = tmp(1);
@@ -175,7 +175,7 @@ void GMM::load(const std::string& file){
         if(!Covariances[i].load(full_path_sigma)){
             std::cout<< "***failed to load: " << full_path_sigma<< std::endl;
         }else{
-               std::cout<< "   loaded: " << "sigma_" + boost::lexical_cast<std::string>(i+1) + ".txt" << std::endl;
+            std::cout<< "   loaded: " << "sigma_" + boost::lexical_cast<std::string>(i+1) + ".txt" << std::endl;
         }
     }
 
@@ -191,7 +191,7 @@ void GMM::load(const std::string& file){
     // std::vector<arma::vec> Mu(K);
     this->pi.resize(K);
 
-   // std::cout<< "#1" << std::endl;
+    // std::cout<< "#1" << std::endl;
 
     for(std::size_t k = 0; k < K; k++){
         this->pi(k) = pi(k);
@@ -217,7 +217,7 @@ void GMM::load(const std::string& file){
     assert(Means.size() > 0);
     Means[0].print("means (0)");
 
-   // std::cout<< "#3" << std::endl;
+    // std::cout<< "#3" << std::endl;
 
     //
 
@@ -242,17 +242,31 @@ void GMM::sample(arma::mat& X){
     }
 }
 
-void GMM::print() const{
+void GMM::print(int i) const{
     std::cout<< "=== GMM " << name << "===" << std::endl;
-    pi.print("pi");
     std::cout<< "K: " << K << std::endl;
     std::cout<< "D: " << D << std::endl;
+
+    if (i==-1)
+    {
+        pi.print("pi");
+        for(std::size_t i = 0; i < Means.size();i++){
+            Means[i].print("Mu(" + boost::lexical_cast<std::string>(i) + ")");
+        }
+        for(std::size_t i = 0; i < Means.size();i++){
+            Covariances[i].print("Cov(" + boost::lexical_cast<std::string>(i) + ")");
+        }
+    }else if(i >= 0 && i < static_cast<int>(K)){
+        std::cout<< "weight(" << i << "): " << pi(i) << std::endl;
+        Means[i].print("Mu(" + boost::lexical_cast<std::string>(i) + ")");
+        Covariances[i].print("Cov(" + boost::lexical_cast<std::string>(i) + ")");
+    }
 }
 
 
 void cGMM::condition(const GMM& gmm_in,const std::vector<std::size_t>& in,const std::vector<std::size_t>& out){
 
-  //  std::cout<< "cGMM::condition independent x" << std::endl;
+    //  std::cout<< "cGMM::condition independent x" << std::endl;
 
     std::size_t D_c = in.size();
     std::size_t K   = gmm_in.K;
@@ -262,21 +276,21 @@ void cGMM::condition(const GMM& gmm_in,const std::vector<std::size_t>& in,const 
     std::vector<arma::mat> Covariances(K);
 
 
-  //  std::cout<< "K: " << K << std::endl;
+    //  std::cout<< "K: " << K << std::endl;
     gaussian_c.resize(K);
 
-   // gmm_in.get_means()[0].print("gmm_in.get_means()[0]");
-   // gmm_in.get_covariances()[0].print("gmm_in.get_covariances()[0]");
+    // gmm_in.get_means()[0].print("gmm_in.get_means()[0]");
+    // gmm_in.get_covariances()[0].print("gmm_in.get_covariances()[0]");
 
 
     for(std::size_t k = 0; k < gmm_in.K;k++){
         // P( x_a | X_b)
         gaussian_c[k].condition(gmm_in.get_means()[k],gmm_in.get_covariances()[k],in,out);
-     //   std::cout<< "after conidtion["<<0<<"]" << std::endl;
+        //   std::cout<< "after conidtion["<<0<<"]" << std::endl;
 
         Means[k].resize(D_c);
         Covariances[k] = gaussian_c[k].Sigma_1c2;
-       // std::cout<< "after Covariances["<<k<<"]" << std::endl;
+        // std::cout<< "after Covariances["<<k<<"]" << std::endl;
 
     }
 
@@ -287,9 +301,9 @@ void cGMM::condition(const GMM& gmm_in,const std::vector<std::size_t>& in,const 
 
 void cGMM::condition(const arma::colvec& x_in, const GMM &gmm_in){
 
-//    std::cout<< "cGMM::condition dependent x" << std::endl;
+    //    std::cout<< "cGMM::condition dependent x" << std::endl;
 
-   // x_in.print("x_in");
+    // x_in.print("x_in");
 
     for(std::size_t k = 0; k < gmm_in.K;k++){
         // \mu_a + Sig_12 * Sig_22^{-1} * (x - \mu_b)
@@ -305,9 +319,9 @@ void cGMM::condition(const arma::colvec& x_in, const GMM &gmm_in){
 void cGMM::print(const std::string &p) const{
     std::cout<< "=== cGMM " << gmm_c.name << "===" << std::endl;
     if(p == ""){
-    gmm_c.get_weigts().print("pi");
-    std::cout<< "K: " << gmm_c.K << std::endl;
-    std::cout<< "D: " << gmm_c.D << std::endl;
+        gmm_c.get_weigts().print("pi");
+        std::cout<< "K: " << gmm_c.K << std::endl;
+        std::cout<< "D: " << gmm_c.D << std::endl;
     }else if(p == "in"){
         std::cout<< "in["<<gmm_c.in.size() << "]: ";
         for(std::size_t i = 0; i < gmm_c.in.size();i++){

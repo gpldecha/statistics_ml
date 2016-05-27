@@ -74,6 +74,10 @@ public:
 
 class GMM {
 
+public:
+
+    enum class GMM_Print {priors,means,covariance};
+
 public :
 
     GMM();
@@ -106,7 +110,7 @@ public :
 
     void clear();
 
-    void print() const;
+    void print(int i=-1) const;
 
     std::size_t K;
     std::size_t D;
